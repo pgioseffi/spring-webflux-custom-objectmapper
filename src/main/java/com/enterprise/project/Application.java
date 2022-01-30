@@ -10,14 +10,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.web.reactive.config.EnableWebFlux;
 
-import com.enterprise.project.serializer.ModelSerializer;
+import com.enterprise.project.converter.SecondModelConverter;
+import com.enterprise.project.model.SecondModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.std.StdDelegatingSerializer;
 
 @SpringBootApplication
-@EnableWebFlux
 public class Application {
 
 	public static void main(final String[] args) {
@@ -40,6 +40,7 @@ public class Application {
 	@Bean
 	@Primary
 	public ObjectMapper customObjectMapper(final Jackson2ObjectMapperBuilder builder) {
-		return builder.serializationInclusion(JsonInclude.Include.NON_NULL).serializers(new ModelSerializer()).build();
+		return builder.serializationInclusion(JsonInclude.Include.NON_NULL)
+				.serializers(new StdDelegatingSerializer(SecondModel.class, new SecondModelConverter())).build();
 	}
 }

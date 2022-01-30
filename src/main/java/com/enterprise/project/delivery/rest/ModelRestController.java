@@ -20,7 +20,7 @@ public class ModelRestController implements ModelAPI {
 	@Override
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Mono<FirstModel> getResponseModel() {
-		return Mono.just(new FirstModel(Integer.valueOf(1), BigDecimal.ONE, BigDecimal.TEN, "Description", Boolean.TRUE,
+		return Mono.just(new FirstModel(Integer.valueOf(1), BigDecimal.TEN, null, "Description", null,
 				new SecondModel("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven",
 						new ThirdModel("One", "Two", "Three", "Four", "Five"))));
 	}
