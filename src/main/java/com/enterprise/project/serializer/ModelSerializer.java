@@ -1,4 +1,4 @@
-package com.enterprise.project.model.serializer;
+package com.enterprise.project.serializer;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

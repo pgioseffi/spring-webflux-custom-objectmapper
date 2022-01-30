@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.reactive.config.EnableWebFlux;
 
-import com.enterprise.project.model.serializer.ModelSerializer;
+import com.enterprise.project.serializer.ModelSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,7 +33,7 @@ public class Application {
 			beanDefinitionScanner.addIncludeFilter(
 					(final var mr, final var mrf) -> !mr.getClassMetadata().getClassName().contains("model"));
 
-			beanDefinitionScanner.scan("com.enterprise.project", "com.enterprise.project.model.serializer");
+			beanDefinitionScanner.scan("com.enterprise.project");
 		};
 	}
 
