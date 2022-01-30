@@ -19,38 +19,38 @@ public class ModelSerializer extends StdSerializer<FirstModel> {
 		this(FirstModel.class);
 	}
 
-	public ModelSerializer(final Class<FirstModel> responseModel) {
-		super(responseModel);
+	public ModelSerializer(final Class<FirstModel> model) {
+		super(model);
 	}
 
 	@Override
-	public void serialize(final FirstModel Model, final JsonGenerator jgen,
+	public void serialize(final FirstModel model, final JsonGenerator jgen,
 			@SuppressWarnings("unused") final SerializerProvider provider) throws IOException {
 		jgen.writeStartObject();
-		jgen.writeNumberField("one", Model.second());
+		jgen.writeNumberField("one", model.second());
 
-		final var totalValue = Model.third();
+		final var totalValue = model.third();
 		if (totalValue != null) {
 			jgen.writeNumberField("two", totalValue);
 		}
 
-		jgen.writeNumberField("three", Model.first().intValue());
-		jgen.writeStringField("four", Model.fourth());
+		jgen.writeNumberField("three", model.first().intValue());
+		jgen.writeStringField("four", model.fourth());
 
-		final var surcharge = Model.fifth();
+		final var surcharge = model.fifth();
 		if (surcharge != null) {
 			jgen.writeBooleanField("five", surcharge.booleanValue());
 		}
 
-		jgen.writeStringField("six", ModelSerializer.encodeBase64(ModelSerializer.toXML(Model.sixth())));
+		jgen.writeStringField("six", ModelSerializer.encodeBase64(ModelSerializer.toXML(model.sixth())));
 		jgen.writeEndObject();
 	}
 
-	public static String encodeBase64(final String toEncode) {
+	private static String encodeBase64(final String toEncode) {
 		return Base64.getEncoder().encodeToString(toEncode.getBytes(StandardCharsets.UTF_8));
 	}
 
-	public static <T> String toXML(final T data) {
+	private static <T> String toXML(final T data) {
 		try {
 			return XmlMapper.builder().build().writeValueAsString(data);
 		} catch (@SuppressWarnings("unused") final JsonProcessingException e) {
